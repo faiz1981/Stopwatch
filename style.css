@@ -1,0 +1,226 @@
+
+
+body {
+  background:  #000304 ;
+  font-size: 100%;
+  font-family: "Share Tech Mono", monospace;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+ }
+.name{
+ position: static;
+ margin: 25px ,25px;
+ color: cyan;
+ z-index: 10;
+
+}
+
+.stopwatch {
+  text-align: center;
+  border: 1px solid red;
+  padding: 2rem;
+  margin-top: 4rem;
+  box-shadow: 0 0 10px red;
+  position: relative;
+  &:after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 1rem;
+    left: 1rem;
+    z-index: -1;
+    border-bottom: 1px solid fuchsia;
+    border-right: 1px solid fuchsia;
+    box-shadow: 3px 3px 3px 0 #80008066;
+  }
+}
+
+.time {
+  font-size: 3em;
+  color: cyan;
+  text-shadow: 0 0 10px rgb(0, 128, 128);
+  margin-bottom: 0.5em;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid cyan;
+  background: 0;
+  color: cyan;
+  padding: 0.5em 1em;
+  text-transform: uppercase;
+  margin: 0 0.5em;
+  transition: all 0.3s;
+  &.clear {
+    color: orange;
+    border: 1px solid orange;
+    position: relative;
+    &:after {
+      content: "";
+      height: 1px;
+      width: 200px;
+      position: absolute;
+      background: orange;
+      top: -1rem;
+      left: calc(50% - 100px);
+      box-shadow: 0 0 5px orange;
+    }
+    &:hover {
+      background: rgba(255, 28, 128, 0.5);
+      box-shadow: 0 0 10px rgba(255, 28, 128, 0.5);
+    }
+  }
+  &:hover {
+    background: rgba(0, 128, 128, 0.5);
+    box-shadow: 0 0 10px rgba(0, 128, 128, 0.5);
+  }
+}
+
+.laps {
+  color: orange;
+  text-shadow: 0 0 5px rgba(255, 128, 128, 1);
+  margin: 2rem 0 2rem 0;
+  padding: 0;
+  li {
+    list-style-type: decimal;
+    font-size: 1.2em;
+  }
+} 
+
+.name, li:last-child
+{
+  color:red;
+
+}
+@-webkit-keyframes blinker {
+  from {opacity: 1.0;}
+  to {opacity: 0.0;}
+}
+.name ,li:last-child{
+	text-decoration: blink;
+	-webkit-animation-name: blinker;
+	-webkit-animation-duration: 0.6s;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-timing-function:ease-in-out;
+	-webkit-animation-direction: alternate;
+}
+
+:root {
+	--bgcolor: #000304;
+	--hourhand: #ff3161;
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+}
+.wrapper {
+
+  background: #000304;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	padding-top: 25px;
+	justify-content: center;
+	background: var(--bgcolor);
+}
+.watch {
+	width: 350px;
+	height: 350px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 5px solid var(--bgcolor);
+	border-radius: 50%;
+	opacity: 1;
+	box-shadow: 0 -15px 15px rgba(255, 0, 0, 0.05),
+		inset 0 -15px 15px rgba(255, 0, 0, 0.05), 0 15px 15px rgba(255, 0, 0, 0.3),
+		inset 0 15px 15px rgba(255, 0, 0, 0.3);
+	position: relative;
+}
+.watch:before {
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	/* background-image: url(https://raw.githubusercontent.com/iamsaief/JS-Analog-Watch/master/watch-face.png); */
+	background-size: calc(100% - 40px);
+	background-repeat: no-repeat;
+	background-position: center;
+	opacity: 0.5;
+}
+.watch:after {
+	content: "";
+	position: absolute;
+	width: 5px;
+	height: 5px;
+	background: red;
+	border: 8px solid orange;
+	border-radius: 50%;
+	z-index: 10;
+	box-shadow: 0 0 45px 90px rgba(255, 255, 255, 0.01);
+}
+.hour,
+.min,
+.sec {
+	position: absolute;
+}
+.hour,
+.hour-hand {
+	width: 170px;
+	height: 170px;
+}
+.min,
+.min-hand {
+	width: 190px;
+	height: 190px;
+}
+.sec,
+.sec-hand {
+	width: 220px;
+	height: 220px;
+}
+.hour-hand,
+.min-hand,
+.sec-hand {
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	border-radius: 50%;
+	transform: rotateZ(0deg);
+}
+.hour-hand:before {
+	content: "";
+	position: absolute;
+	width: 8px;
+	height: 80px;
+	background: red;
+	border-radius: 6px 6px 0 0;
+	z-index: 10;
+}
+.min-hand:before {
+	content: "";
+	position: absolute;
+	width: 4px;
+	height: 90px;
+	background: cyan;
+	border-radius: 6px 6px 0 0;
+	z-index: 11;
+}
+.sec-hand:before {
+	content: "";
+	position: absolute;
+	width: 2px;
+	height: 140px;
+	background: orange;
+	border-radius: 6px 6px 0 0;
+	z-index: 12;
+}
