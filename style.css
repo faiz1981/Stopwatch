@@ -6,7 +6,9 @@ body {
   font-family: "Share Tech Mono", monospace;
   display: flex;
   align-items: center;
-  flex-direction: column;
+  justify-content: center;
+  flex-direction: row;
+  
  }
 .name{
  position: static;
@@ -17,12 +19,14 @@ body {
 }
 
 .stopwatch {
+  height: 200px;
   text-align: center;
   border: 1px solid red;
   padding: 2rem;
   margin-top: 4rem;
   box-shadow: 0 0 10px red;
   position: relative;
+  
   &:after {
     content: "";
     position: absolute;
@@ -82,8 +86,8 @@ button {
 .laps {
   color: orange;
   text-shadow: 0 0 5px rgba(255, 128, 128, 1);
-  margin: 2rem 0 2rem 0;
-  padding: 0;
+  text-align: center ;
+  margin: 1rem 25rem ;
   li {
     list-style-type: decimal;
     font-size: 1.2em;
@@ -123,22 +127,21 @@ body {
 	display: flex;
 }
 .wrapper {
-
+  position: fixed;
+  box-sizing: border-box; 
+  width: 200px; 
+  margin-top: -180px;
   background: #000304;
-	width: 100vw;
-	height: 100vh;
-	display: flex;
-	padding-top: 25px;
-	justify-content: center;
-	background: var(--bgcolor);
+  /* border: 1px solid yellowgreen; */
+  
 }
 .watch {
-	width: 350px;
-	height: 350px;
+	
+	width: 150px;
+	height: 150px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border: 5px solid var(--bgcolor);
 	border-radius: 50%;
 	opacity: 1;
 	box-shadow: 0 -15px 15px rgba(255, 0, 0, 0.05),
@@ -175,18 +178,18 @@ body {
 }
 .hour,
 .hour-hand {
-	width: 170px;
-	height: 170px;
+	width: 100px;
+	height: 100px;
 }
 .min,
 .min-hand {
-	width: 190px;
-	height: 190px;
+	width: 110px;
+	height: 110px;
 }
 .sec,
 .sec-hand {
-	width: 220px;
-	height: 220px;
+	width: 150px;
+	height: 175px;
 }
 .hour-hand,
 .min-hand,

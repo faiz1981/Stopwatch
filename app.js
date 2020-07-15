@@ -1,140 +1,101 @@
-(function() {
-    const BTN_START = document.querySelector(".start");
-    const BTN_PAUSE = document.querySelector(".pause");
-    const BTN_RESET = document.querySelector(".reset");
-    const BTN_LAP = document.querySelector(".lap");
-    const LIST_LAPS = document.querySelector(".laps");
-    const BTN_CLEAR = document.querySelector(".clear");
-    const TIME_DISPLAY = document.querySelector(".time");
-    const hourHand = document.querySelector("#hour-hand");
-    const minHand = document.querySelector("#min-hand");
-    const secHand = document.querySelector("#sec-hand");
-  
-    let ms, s, m, h;
-  
-    BTN_START.addEventListener("click", e => {
-      e.preventDefault();
-      if (SETTINGS.playing === false) {
-        SETTINGS.playing = true;
-        SETTINGS.timerId = window.requestAnimationFrame(startTimer);
-      }
-  
-      //Resuming play
-      if (SETTINGS.progress !== 0) {
-        SETTINGS.start = performance.now() - SETTINGS.progress;
-      }
-    });
-  
-    BTN_PAUSE.addEventListener("click", pauseTimer);
-    BTN_RESET.addEventListener("click", resetTimer);
-    BTN_LAP.addEventListener("click", recordLap);
-    BTN_CLEAR.addEventListener("click", e => {
-      e.preventDefault();
-      removeChildren(LIST_LAPS);
-      SETTINGS.laps = [];
-      updateLaps();
-    });
-  
-    const SETTINGS = {
-      start: 0,
-      progress: 0,
-      currentTime: "",
-      playing: false,
-      timerId: null,
-      laps: [],
-      get milliseconds() {
-        return Math.trunc(this.progress);
-      }
-    };
-  
-    updateLaps();
-  
-    function startTimer(timestamp) {
-      if (!SETTINGS.start) SETTINGS.start = timestamp;
-      SETTINGS.progress = timestamp - SETTINGS.start;
-      SETTINGS.timerId = window.requestAnimationFrame(startTimer);
-      TIME_DISPLAY.textContent = getDisplay();
-    }
-  
-    function pauseTimer() {
-      SETTINGS.playing = false;
-      window.cancelAnimationFrame(SETTINGS.timerId);
-    }
-  
-    function resetTimer() {
-      // Increment SETTINGS.start with new delay time
-      SETTINGS.start += SETTINGS.progress;
-      SETTINGS.progress = 0.01;
-      TIME_DISPLAY.textContent = "00:00:00:00";
-      minDegrees=0;
-      minHand.style.transform = `rotateZ(${minDegrees}deg)`;
-      secDegrees = 0;
-      secHand.style.transform = `rotateZ(${secDegrees}deg)`;
-    }
-  
-    function recordLap() {
-      if (SETTINGS.playing === true) {
-        SETTINGS.laps.push(SETTINGS.currentTime);
-        updateLaps();
-      }
-    }
-  
-    function updateLaps() {
-      removeChildren(LIST_LAPS);
-      let fragment = document.createDocumentFragment();
-      SETTINGS.laps.forEach(e => {
-        createEl({ tag: "li", content: e, parent: fragment, addToParent: 1 });
-      });
-      LIST_LAPS.appendChild(fragment);
-      BTN_CLEAR.style.display = SETTINGS.laps.length > 0 ? "block" : "none";
-    }
-  
-    function getDisplay() {
-      ms = Math.trunc((SETTINGS.milliseconds / 10) % 100);
-      s = Math.trunc(SETTINGS.milliseconds / 1000)
-        .toString()
-        .padStart(2, "0");
-      h = parseInt(s / 3600);
-      s = s % 3600; // Purge extracted
-      m = Math.trunc(s / 60)
-        .toString()
-        .padStart(2, "0");
-      s = s % 60; // Purge extracted
-  
-      SETTINGS.currentTime = `${formatTime(h)}:${formatTime(m)}:${formatTime(
-        s
-      )}:${formatTime(ms)}`;
-    	const minDegrees = (s / 60) * 360;
-	    minHand.style.transform = `rotateZ(${minDegrees}deg)`;
-      const secDegrees = (ms / 120) * 360;
-      secHand.style.transform = `rotateZ(${secDegrees}deg)`;
-      return SETTINGS.currentTime;
-    }
-  
-    function formatTime(time) {
-      return time.toString().padStart(2, "0");
-    }
-  
-    function createEl({ parent, tag, content, classes, addToParent } = {}) {
-      let el = document.createElement(tag);
-      if (content) {
-        let txt = document.createTextNode(content);
-        el.appendChild(txt);
-      }
-      if (classes) {
-        el.setAttribute("class", classes);
-      }
-      if (addToParent) {
-        parent.appendChild(el);
-      }
-      return el;
-    }
-  
-    function removeChildren(el) {
-      while (el.firstChild) {
-        el.removeChild(el.firstChild);
-      }
-    }
-  })();
+var btn_Start = document.getElementById('start');
+var btn_laf = document.getElementById('laf');
+var btn_Pause = document.getElementsByClassName("pause");
+var btn_Reset = document.getElementsByClassName('Reset');
+var Laps = document.getElementsByTagName('Li');
+var timer = document.getElementById("time") ;
+var btn_clear= document.getElementById('clear');
+var State = true;
+var hh = 00 ;
+var mm = 00 ;
+var ss = 00 ;
+var ms = 00 ;
+var interval = 0 ;
+const hourHand = document.querySelector("#hour-hand");
+const minHand = document.querySelector("#min-hand");
+const secHand = document.querySelector("#sec-hand");
 
-document.write("Develop by Faiz ")
+function displaytime(hh,mm,ss,ms){
+    timer.innerHTML=`${formatTime(hh)}:${formatTime(mm)}:${formatTime(ss)}:${formatTime(ms)}`
+}
+
+function formatTime(time) {
+      return time.toString().padStart(2, "0");
+}
+
+function Start(){
+    if (State){
+        btn_Start.innerHTML="PAUSE";
+        run_watch();
+        State =! State;
+    }else
+    {  btn_Start.innerHTML="START" ;
+       clearInterval(interval);
+       State=!State;
+    }
+}
+
+function run_watch(){
+interval = setInterval(()=>{
+    const secDegrees = (ms / 120) * 360;
+    secHand.style.transform = `rotateZ(${secDegrees}deg)`;
+    displaytime(hh,mm,ss,ms);
+    analog(hh,mm,ss,ms);
+    ms++;
+    if(ms >= 100){
+        ss++;
+        ms = 0 ;
+    }
+    if (ss>= 60){
+        mm++;
+        ss=0;
+    }
+    if (mm >= 60){
+        hh++;
+        mm=0;
+    }
+},10)
+
+
+}
+
+function analog(hh,mm,ss,ms){
+    const secDegrees = (ms / 120) * 360;
+    secHand.style.transform = `rotateZ(${secDegrees}deg)`;
+    const minDegrees = (ss / 60) * 360;
+	minHand.style.transform = `rotateZ(${minDegrees}deg)`;
+
+
+
+}
+
+
+
+function Reset(){
+    Start();
+    clearInterval(interval);
+    displaytime(hh=0,mm=0,ss=0,ms=0);
+    analog(hh=0,mm=0,ss=0,ms=0);
+    clearlaps();
+}
+
+// function addlap(){
+ 
+//   btn_clear.style.display='none';
+// }
+
+function addlap(){
+    if(!State){
+    const tim = time.innerHTML ;
+    var node = document.createElement("LI");
+    var textnode = document.createTextNode(tim);
+    node.appendChild(textnode);
+    document.getElementById("laps").appendChild(node);
+    }
+}
+function clearlaps(){
+    if(State){
+    var ul = document.getElementById("laps");
+    ul.innerHTML = "";
+    }
+}

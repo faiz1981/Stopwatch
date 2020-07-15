@@ -7,37 +7,41 @@
 </head>
 <body>
     <div>
-        <div class="name"><h5>by Faiz khan </h5></div>
-    <div class="stopwatch">
+        <div class="name">
+            <h5>by Faiz khan </h5>
+        </div>
+        <div class="stopwatch">
 
-        <div class="time">00:00:00:00 </div>
-        <button class="start">Start</button>
-        <button class="pause">Pause</button>
-        <button class="reset">Reset</button>
-        <button class="lap"  >Lap  </button>
-        
-    </div>
-    
-    <div class="lapsBox">
-        <ol class="laps"> </ol>
-        <button class="clear">Clear Laps</button>
-    </div>
-    <div class="wrapper">
-        <div class="watch">
-            <div class="hour">
-                <div class="hour-hand" id="hour-hand"></div>
-            </div>
-            <div class="min">
-                <div class="min-hand" id="min-hand"></div>
-            </div>
-            <div class="sec">
-                <div class="sec-hand" id="sec-hand"></div>
+            <div id= "time"class="time">00:00:00:00</div>
+            <button onClick="Start()" id="start"  class="start">Start </button>
+            <button onClick="Reset()" id="reset" class="reset">Reset</button>
+            <button onClick="addlap()"   id="lap" class="lap">Lap </button>
+            <br> <br><button onClick="clearlaps()"id="clear" class="clear">Clear Laps</button>
+         <div class="wrapper">
+            <div class="watch">
+                <div class="hour">
+                    <div class="hour-hand" id="hour-hand"></div>
+                </div>
+                <div class="min">
+                    <div class="min-hand" id="min-hand"></div>
+                </div>
+                <div class="sec">
+                    <div class="sec-hand" id="sec-hand"></div>
+                </div>
             </div>
         </div>
+        </div>
+
+        <div class="lapsBox">
+            <ol id="laps" class="laps">
+          
+            </ol>
+           
+        </div>
+       
+
+
     </div>
-
-
-</div>
     <script src='app.js'></script>
 </body>
 
